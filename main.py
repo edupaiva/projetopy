@@ -7,22 +7,13 @@ app = FastAPI()
 
 @app.get("/{local}")
 async def get_data(local):
-        location=open(local+'.txt','r')
-        values=location.readlines()
-        sum =0
-        avg=0
-        count=0
+       	
+	location=open(local+'.txt','r')
+        list_of_lists = [float((line.strip())) for line in location]
+        location.close()
 
-        for v in values:
-	        count+=1
-	        sum+=float(v)
-
-        avg = round(sum/count,0)
-
-        sample_list = values
-        converted_list = []
-
-        for element in sample_list:
-            converted_list.append(element.strip())
+        soma = round(sum(list_of_lists),2)
+        quant = len(list_of_lists)
+        media = round(soma/quant,2)
         
         return {"valores": converted_list, "quant" : count, "media" : avg , "soma" : round(sum, 0)  }
